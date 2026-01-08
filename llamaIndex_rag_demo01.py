@@ -1,8 +1,17 @@
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
 from llama_index.vector_stores.chroma import ChromaVectorStore
 from llama_index.embeddings.ollama import OllamaEmbedding
-from llama_index.llms.ollama import Ollama
+# from llama_index.llms.ollama import Ollama
+from llama_index.llms.gemini import Gemini
 import chromadb
+import os
+from dotenv import load_dotenv
+
+# 環境変数読み込み
+load_dotenv()
+
+# APIキー設定
+gemini_key = os.getenv("GEMINI_API_KEY")
 
 # 1. ローカルファイルからドキュメント読み込み
 documents = SimpleDirectoryReader("docs").load_data()  # docs/配下にテキストやPDFを置く
@@ -20,12 +29,15 @@ index = VectorStoreIndex.from_documents(
     embed_model=embed_model,
 )
 
-# 4. クエリ→検索→LLM生成（Ollamaを利用）
-llm = Ollama(model="llama3:8b")  # 例: "llama3", "phi", "mistral" など
+# 4. クエリ→検索→LLM生成
+llm = Gemini(model="gemini-2.5-flash", temperature=0)  
+# ローカルLLMを使う場合は以下を有効化
+# ローカルLLMでも動くが、メモリ要求が多いため非推奨
+# llm = Ollama(model_name="llama3.1:8b", temperature=0)
 query_engine = index.as_query_engine(
     llm=llm,
-    similarity_top_k=3,
+    similarity_top_k=3, # 検索上位3件を取得
 )
-response = query_engine.query("有休取得について日本語で簡潔に教えて")
+response = query_engine.query("飲み会のルールについてドキュメントを参照して日本語で簡潔に教えて")
 
 print(response)
