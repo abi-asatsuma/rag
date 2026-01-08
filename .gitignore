@@ -1,2 +1,15 @@
 .env
 .venv/
+# Python virtual environments
+.venv/
+venv/
+bin/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+# OS files
+.DS_Store
+Thumbs.db
+# VSCode
+.vscode/
