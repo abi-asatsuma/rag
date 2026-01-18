@@ -13,3 +13,7 @@ __pycache__/
 Thumbs.db
 # VSCode
 .vscode/
+
+qwen2.5_ov_model/
+
+chroma_db/

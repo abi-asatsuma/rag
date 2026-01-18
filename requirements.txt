@@ -1,0 +1,17 @@
+# 基礎フレームワーク
+llama-index-core
+chromadb
+python-dotenv
+
+# Vector Store
+llama-index-vector-stores-chroma
+
+# OpenVINO / Intel GPU 推論用 (LLM & Embedding)
+openvino-genai
+openvino
+optimum[openvino,nncf]
+huggingface_hub
+
+# LlamaIndex用 OpenVINO/HuggingFace 統合
+llama-index-llms-openvino
+llama-index-embeddings-huggingface
