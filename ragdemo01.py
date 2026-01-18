@@ -1,4 +1,3 @@
-import time
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
 from llama_index.vector_stores.chroma import ChromaVectorStore
 from llama_index.embeddings.ollama import OllamaEmbedding
@@ -28,8 +27,6 @@ llm = Ollama(model="llama3.2:3b", temperature=0)
 query_engine = index.as_query_engine(
     llm=llm,
     similarity_top_k=3, # 検索上位3件を取得
-    request_timeout=500.0,
-    additional_kwargs={"timeout": 600.0}
 )
 
 while True:
